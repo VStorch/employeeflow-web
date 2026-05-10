@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "../pages/Login";
-import Employees from "../pages/Employees";
 import ProtectedRoute from "./ProtectedRoute";
+import Login from "../../features/auth/pages/Login";
+import Employees from "../../features/employees/pages/Employees";
 
 function AppRoutes() {
   return (

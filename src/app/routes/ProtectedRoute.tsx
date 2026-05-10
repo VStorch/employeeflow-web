@@ -1,6 +1,6 @@
 import type React from "react";
-import { isAuthenticated } from "../services/authService";
 import { Navigate } from "react-router-dom";
+import { isAuthenticated } from "../../features/auth/services/authService";
 
 type Props = {
   children: React.ReactNode;

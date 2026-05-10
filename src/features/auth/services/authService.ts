@@ -1,7 +1,8 @@
-import api from "./api";
+import api from "../../../api/api";
 import type { LoginRequest } from "../types/LoginRequest";
 import type { LoginResponse } from "../types/LoginResponse";
 import { getToken } from "./tokenService";
+
 
 export async function login(
     data: LoginRequest

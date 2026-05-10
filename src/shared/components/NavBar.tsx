@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { removeToken } from "../services/tokenService";
-
+import { removeToken } from "../../features/auth/services/tokenService";
 function NavBar() {
   const navigate = useNavigate();
 
