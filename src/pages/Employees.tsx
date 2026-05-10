@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Employee } from "../types/Employee";
 import { getEmployees } from "../services/employeeService";
+import MainLayout from "../layouts/MainLayout";
 
 function Employees() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -19,7 +20,7 @@ function Employees() {
   }, []);
 
   return (
-    <div className="container mt-4">
+    <MainLayout>
       <h1>Funcionários</h1>
 
       <table className="table table-striped mt-3">
@@ -47,7 +48,7 @@ function Employees() {
           ))}
         </tbody>
       </table>
-    </div>
+    </MainLayout>
   );
 }
 
