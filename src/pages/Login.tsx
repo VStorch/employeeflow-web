@@ -4,7 +4,6 @@ import { saveToken } from "../services/tokenService";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,16 +12,14 @@ function Login() {
     e.preventDefault();
 
     try {
-
       const response = await login({
         email,
-        password
+        password,
       });
 
       saveToken(response.token);
 
       navigate("/employees");
-
     } catch (error) {
       console.error(error);
       alert("Erro no login");
@@ -31,11 +28,9 @@ function Login() {
 
   return (
     <div className="container mt-5">
-
       <h1>Login</h1>
 
       <form onSubmit={handleLogin}>
-
         <div className="mb-3">
           <label>Email</label>
 
@@ -57,10 +52,7 @@ function Login() {
           />
         </div>
 
-        <button className="btn btn-primary">
-          Entrar
-        </button>
-
+        <button className="btn btn-primary">Entrar</button>
       </form>
     </div>
   );
