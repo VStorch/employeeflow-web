@@ -17,6 +17,7 @@ import MainLayout from "../../../layouts/MainLayout";
 import EmployeeForm from "../components/EmployeeForm";
 import EmployeeFilters from "../components/EmployeeFilters";
 import EmployeeCard from "../components/EmployeeCard";
+import { toast } from "react-toastify";
 
 function Employees() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -67,14 +68,20 @@ function Employees() {
       if (editingEmployee) {
         await updateEmployee(editingEmployee.id, data);
 
+        toast.success("Funcionário atualizado com sucesso!");
+
         setEditingEmployee(null);
       } else {
         await createEmployee(data);
+
+        toast.success("Funcionário criado com sucesso!");
       }
 
       await loadEmployees();
     } catch (error) {
       console.error("Erro ao salvar funcionário", error);
+
+      toast.error("Ocorreu um erro ao salvar o funcionário.");
     }
   }
 
@@ -86,9 +93,13 @@ function Employees() {
     try {
       await deleteEmployee(id);
 
+      toast.success("Funcionário deletado com sucesso!");
+
       await loadEmployees();
     } catch (error) {
       console.error("Erro ao deletar funcionário", error);
+
+      toast.error("Ocorreu um erro ao deletar o funcionário.");
     }
   }
 
