@@ -1,21 +1,15 @@
 import { useEffect, useState } from "react";
-
-import MainLayout from "../../../layouts/MainLayout";
-
-import RoleForm from "../components/RoleForm";
-
-import RoleTable from "../components/RoleTable";
-
-import type { Role } from "../types/Role";
-
-import type { RoleFormData } from "../types/RoleFormData";
-
 import {
   createRole,
   deleteRole,
   getRoles,
   updateRole,
 } from "../services/roleService";
+import type { Role } from "../types/Role";
+import type { RoleFormData } from "../types/RoleFormData";
+import MainLayout from "../../../layouts/MainLayout";
+import RoleForm from "../components/RoleForm";
+import RoleCard from "../components/RoleCard";
 
 function Roles() {
   const [roles, setRoles] = useState<Role[]>([]);
@@ -68,6 +62,11 @@ function Roles() {
 
   function handleEdit(role: Role) {
     setEditingRole(role);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   function handleCancelEdit() {
@@ -76,7 +75,11 @@ function Roles() {
 
   return (
     <MainLayout>
-      <h1 className="mb-4">Cargos</h1>
+      <div className="mb-4">
+        <h1 className="mb-1">Cargos</h1>
+
+        <p className="text-muted mb-0">Gerencie os cargos da empresa</p>
+      </div>
 
       <RoleForm
         onSubmit={handleSubmit}
@@ -84,7 +87,26 @@ function Roles() {
         onCancel={handleCancelEdit}
       />
 
-      <RoleTable roles={roles} onEdit={handleEdit} onDelete={handleDelete} />
+      {roles.length === 0 ? (
+        <div className="card shadow-sm">
+          <div className="card-body text-center py-5">
+            <h4>Nenhum cargo encontrado</h4>
+
+            <p className="text-muted mb-0">Crie o primeiro cargo</p>
+          </div>
+        </div>
+      ) : (
+        <div className="row g-4">
+          {roles.map((role) => (
+            <RoleCard
+              key={role.id}
+              role={role}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
+      )}
     </MainLayout>
   );
 }
