@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import MainLayout from "../../../layouts/MainLayout";
-
 import { createCompany } from "../services/companyService";
 import { toast } from "react-toastify";
 
@@ -42,60 +40,58 @@ function RegisterCompany() {
   }
 
   return (
-    <MainLayout>
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card shadow-sm">
-            <div className="card-body p-4">
-              <h1 className="mb-4">Criar Empresa</h1>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="text-center mb-5">
+          <h1 className="auth-title">Criar Empresa</h1>
 
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label>Nome da Empresa</label>
-
-                  <input
-                    className="form-control"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label>Email</label>
-
-                  <input
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label>Senha</label>
-
-                  <input
-                    type="password"
-                    className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-
-                <button className="btn btn-primary w-100" disabled={loading}>
-                  {loading ? "Criando..." : "Criar Empresa"}
-                </button>
-              </form>
-
-              <hr className="my-4" />
-
-              <p className="text-center mb-0">
-                Já possui conta? <Link to="/login">Entrar</Link>
-              </p>
-            </div>
-          </div>
+          <p className="auth-subtitle">Crie sua empresa no EmployeeFlow.</p>
         </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Nome da Empresa</label>
+
+            <input
+              className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+
+            <input
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="form-label">Senha</label>
+
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button className="btn btn-primary w-100" disabled={loading}>
+            {loading ? "Criando..." : "Criar Empresa"}
+          </button>
+        </form>
+
+        <hr className="my-4" />
+
+        <p className="text-center mb-0">
+          Já possui conta? <Link to="/login">Entrar</Link>
+        </p>
       </div>
-    </MainLayout>
+    </div>
   );
 }
 

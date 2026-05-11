@@ -12,12 +12,12 @@ function MainLayout({ children }: Props) {
       <Sidebar />
 
       <main
-        className="flex-grow-1 bg-light"
+        className="flex-grow-1"
         style={{
           minHeight: "100vh",
         }}
       >
-        <div className="container-fluid p-4">{children}</div>
+        <div className="container-fluid p-4 p-lg-5">{children}</div>
       </main>
     </div>
   );

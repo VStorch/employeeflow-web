@@ -1,0 +1,129 @@
+:root {
+  --ef-primary: #4f46e5;
+  --ef-sidebar-bg: #0f172a;
+  --ef-sidebar-hover: #1e293b;
+  
+  --ef-bg: #f8fafc;
+  --ef-surface: #ffffff;
+  --ef-border: #e2e8f0;
+
+  --ef-text: #0f172a;
+  --ef-muted: #64748b;
+
+  --ef-radius: 8px;
+  
+  --ef-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --ef-transition: 0.2s ease-out;
+}
+
+body {
+  background: var(--ef-bg);
+  color: var(--ef-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  background: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius);
+  box-shadow: var(--ef-shadow);
+  transition: var(--ef-transition);
+}
+
+.card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.form-control,
+.form-select {
+  border-radius: 6px;
+  border: 1px solid var(--ef-border);
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  transition: border-color var(--ef-transition);
+}
+
+.form-control:focus {
+  border-color: var(--ef-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.btn {
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: var(--ef-transition);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--ef-primary);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #4338ca;
+  filter: brightness(1.1);
+}
+
+.sidebar {
+  background: var(--ef-sidebar-bg);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link {
+  color: #94a3b8;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 4px 12px;
+  transition: all 0.2s;
+}
+
+.sidebar .nav-link:hover {
+  background: var(--ef-sidebar-hover);
+  color: #f8fafc;
+}
+
+.sidebar .nav-link.active {
+  background: rgba(79, 70, 229, 0.15); /* Destaque sutil */
+  color: #818cf8;
+  font-weight: 600;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--ef-bg);
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--ef-border);
+}
+
+.dashboard-icon {
+  width: 64px;
+
+  height: 64px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: var(--ef-primary);
+
+  font-size: 2.2rem;
+}

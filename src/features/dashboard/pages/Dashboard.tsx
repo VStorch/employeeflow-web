@@ -114,10 +114,10 @@ function Dashboard() {
                     <div>
                       <p className="text-muted mb-2">{card.title}</p>
 
-                      <h2 className="mb-0">{card.value}</h2>
+                      <h2 className="display-6 fw-bold mb-0">{card.value}</h2>
                     </div>
 
-                    <div className="fs-1 text-primary">{card.icon}</div>
+                    <div className="dashboard-icon">{card.icon}</div>
                   </div>
                 </div>
               </div>
