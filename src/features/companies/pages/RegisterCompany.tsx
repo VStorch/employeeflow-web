@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../../../layouts/MainLayout";
 
 import { createCompany } from "../services/companyService";
+import { toast } from "react-toastify";
 
 function RegisterCompany() {
   const [name, setName] = useState("");
@@ -28,13 +29,13 @@ function RegisterCompany() {
         password,
       });
 
-      alert("Empresa criada com sucesso!");
+      toast.success("Empresa criada com sucesso!");
 
       navigate("/login");
     } catch (error) {
       console.error(error);
 
-      alert("Erro ao criar empresa");
+      toast.error("Erro ao criar empresa");
     } finally {
       setLoading(false);
     }

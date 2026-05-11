@@ -16,6 +16,7 @@ import {
 } from "../services/companyService";
 
 import { removeToken } from "../../auth/services/tokenService";
+import { toast } from "react-toastify";
 
 function CompanyProfile() {
   const [company, setCompany] = useState<Company | null>(null);
@@ -42,9 +43,13 @@ function CompanyProfile() {
       const updated = await updateCompany(data);
 
       setCompany(updated);
+
+      toast.success("Empresa atualizada com sucesso!");
+
       setIsEditing(false);
     } catch (error) {
       console.error("Erro ao atualizar empresa", error);
+      toast.error("Ocorreu um erro ao atualizar a empresa.");
     }
   }
 
@@ -60,9 +65,12 @@ function CompanyProfile() {
 
       removeToken();
 
+      toast.success("Empresa excluída com sucesso!");
+
       navigate("/login");
     } catch (error) {
       console.error("Erro ao excluir empresa", error);
+      toast.error("Ocorreu um erro ao excluir a empresa.");
     }
   }
 

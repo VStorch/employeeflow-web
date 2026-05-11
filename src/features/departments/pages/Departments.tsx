@@ -10,6 +10,7 @@ import type { DepartmentFormData } from "../types/DepartmentFormData";
 import MainLayout from "../../../layouts/MainLayout";
 import DepartmentForm from "../components/DepartmentForm";
 import DepartmentCard from "../components/DepartmentCard";
+import { toast } from "react-toastify";
 
 function Departments() {
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -37,14 +38,20 @@ function Departments() {
       if (editingDepartment) {
         await updateDepartment(editingDepartment.id, data);
 
+        toast.success("Departamento atualizado com sucesso!");
+
         setEditingDepartment(null);
       } else {
         await createDepartment(data);
+
+        toast.success("Departamento criado com sucesso!");
       }
 
       await loadDepartments();
     } catch (error) {
       console.error("Erro ao salvar departamento", error);
+
+      toast.error("Ocorreu um erro ao salvar o departamento.");
     }
   }
 
@@ -56,9 +63,12 @@ function Departments() {
     try {
       await deleteDepartment(id);
 
+      toast.success("Departamento deletado com sucesso!");
+
       await loadDepartments();
     } catch (error) {
       console.error("Erro ao deletar departamento", error);
+      toast.error("Ocorreu um erro ao deletar o departamento.");
     }
   }
 

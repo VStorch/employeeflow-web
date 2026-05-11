@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
 
 import { saveToken } from "../services/tokenService";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ function Login() {
     } catch (error) {
       console.error(error);
 
-      alert("Erro no login");
+      toast.error("Erro no login");
     } finally {
       setLoading(false);
     }

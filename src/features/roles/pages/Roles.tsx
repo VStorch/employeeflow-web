@@ -10,6 +10,7 @@ import type { RoleFormData } from "../types/RoleFormData";
 import MainLayout from "../../../layouts/MainLayout";
 import RoleForm from "../components/RoleForm";
 import RoleCard from "../components/RoleCard";
+import { toast } from "react-toastify";
 
 function Roles() {
   const [roles, setRoles] = useState<Role[]>([]);
@@ -35,14 +36,18 @@ function Roles() {
       if (editingRole) {
         await updateRole(editingRole.id, data);
 
+        toast.success("Cargo atualizado com sucesso!");
+
         setEditingRole(null);
       } else {
         await createRole(data);
+        toast.success("Cargo criado com sucesso!");
       }
 
       await loadRoles();
     } catch (error) {
       console.error("Erro ao salvar cargo", error);
+      toast.error("Ocorreu um erro ao salvar o cargo.");
     }
   }
 
@@ -54,9 +59,13 @@ function Roles() {
     try {
       await deleteRole(id);
 
+      toast.success("Cargo deletado com sucesso!");
+
       await loadRoles();
     } catch (error) {
       console.error("Erro ao deletar cargo", error);
+
+      toast.error("Ocorreu um erro ao deletar o cargo.");
     }
   }
 
