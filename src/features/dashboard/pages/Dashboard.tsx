@@ -9,6 +9,16 @@ function Dashboard() {
 
       <div className="row g-3">
         <div className="col-md-6">
+          <Link to="/company" className="text-decoration-none">
+            <div className="card shadow-sm p-4">
+              <h3>Empresa</h3>
+
+              <p className="text-muted mb-0">Configurações da empresa</p>
+            </div>
+          </Link>
+        </div>
+
+        <div className="col-md-6">
           <Link to="/employees" className="text-decoration-none">
             <div className="card shadow-sm p-4">
               <h3>Funcionários</h3>
@@ -19,11 +29,21 @@ function Dashboard() {
         </div>
 
         <div className="col-md-6">
-          <Link to="/company" className="text-decoration-none">
+          <Link to="/departments" className="text-decoration-none">
             <div className="card shadow-sm p-4">
-              <h3>Empresa</h3>
+              <h3>Departamentos</h3>
 
-              <p className="text-muted mb-0">Configurações da empresa</p>
+              <p className="text-muted mb-0">Gerencie departamentos</p>
+            </div>
+          </Link>
+        </div>
+
+        <div className="col-md-6">
+          <Link to="/" className="text-decoration-none">
+            <div className="card shadow-sm p-4">
+              <h3>Cargos</h3>
+
+              <p className="text-muted mb-0">Gerencie cargos</p>
             </div>
           </Link>
         </div>
