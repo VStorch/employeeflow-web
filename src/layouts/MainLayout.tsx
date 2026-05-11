@@ -1,16 +1,25 @@
-import NavBar from "../shared/components/NavBar";
+import type { ReactNode } from "react";
+
+import Sidebar from "../shared/components/Sidebar";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 function MainLayout({ children }: Props) {
   return (
-    <>
-      <NavBar />
+    <div className="d-flex">
+      <Sidebar />
 
-      <main className="container mt-4">{children}</main>
-    </>
+      <main
+        className="flex-grow-1 bg-light"
+        style={{
+          minHeight: "100vh",
+        }}
+      >
+        <div className="container-fluid p-4">{children}</div>
+      </main>
+    </div>
   );
 }
 
