@@ -8,10 +8,16 @@ import EmployeeForm from "../components/EmployeeForm";
 import type { Employee } from "../types/Employee";
 import type { EmployeeFormData } from "../types/EmployeeFormData";
 
-import { getEmployees, createEmployee } from "../services/employeeService";
+import {
+  getEmployees,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee,
+} from "../services/employeeService";
 
 function Employees() {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
 
   useEffect(() => {
     loadEmployees();
@@ -26,23 +32,59 @@ function Employees() {
     }
   }
 
-  async function handleCreateEmployee(data: EmployeeFormData) {
+  async function handleSubmit(data: EmployeeFormData) {
     try {
-      await createEmployee(data);
+      if (editingEmployee) {
+        await updateEmployee(editingEmployee.id, data);
+        setEditingEmployee(null);
+      } else {
+        await createEmployee(data);
+      }
 
       await loadEmployees();
     } catch (error) {
-      console.error("Erro ao criar funcionário", error);
+      console.error("Erro ao salvar funcionário", error);
     }
+  }
+
+  async function handleDelete(id: number) {
+    const confirmed = window.confirm(
+      "Tem certeza que deseja deletar este funcionário?",
+    );
+
+    if (!confirmed) return;
+
+    try {
+      await deleteEmployee(id);
+      await loadEmployees();
+    } catch (error) {
+      console.error("Erro ao deletar funcionário", error);
+    }
+  }
+
+  function handleEdit(employee: Employee) {
+    setEditingEmployee(employee);
+  }
+
+  function handleCancelEdit() {
+    setEditingEmployee(null);
   }
 
   return (
     <MainLayout>
-      <h1>Funcionários</h1>
+      <h1 className="mb-4">Funcionários</h1>
 
-      <EmployeeForm onSubmit={handleCreateEmployee} />
+      <EmployeeForm
+        onSubmit={handleSubmit}
+        employee={editingEmployee}
+        onCancel={handleCancelEdit}
+      />
 
-      <EmployeeTable employees={employees} />
+      <EmployeeTable
+        employees={employees}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
     </MainLayout>
   );
 }
