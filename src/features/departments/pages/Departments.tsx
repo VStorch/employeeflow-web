@@ -1,21 +1,15 @@
 import { useEffect, useState } from "react";
-
-import MainLayout from "../../../layouts/MainLayout";
-
-import DepartmentForm from "../components/DepartmentForm";
-
-import DepartmentTable from "../components/DepartmentTable";
-
-import type { Department } from "../types/Department";
-
-import type { DepartmentFormData } from "../types/DepartmentFormData";
-
 import {
   createDepartment,
   deleteDepartment,
   getDepartments,
   updateDepartment,
 } from "../services/departmentService";
+import type { Department } from "../types/Department";
+import type { DepartmentFormData } from "../types/DepartmentFormData";
+import MainLayout from "../../../layouts/MainLayout";
+import DepartmentForm from "../components/DepartmentForm";
+import DepartmentCard from "../components/DepartmentCard";
 
 function Departments() {
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -70,6 +64,11 @@ function Departments() {
 
   function handleEdit(department: Department) {
     setEditingDepartment(department);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   function handleCancelEdit() {
@@ -78,7 +77,11 @@ function Departments() {
 
   return (
     <MainLayout>
-      <h1 className="mb-4">Departamentos</h1>
+      <div className="mb-4">
+        <h1 className="mb-1">Departamentos</h1>
+
+        <p className="text-muted mb-0">Gerencie os departamentos da empresa</p>
+      </div>
 
       <DepartmentForm
         onSubmit={handleSubmit}
@@ -86,11 +89,26 @@ function Departments() {
         onCancel={handleCancelEdit}
       />
 
-      <DepartmentTable
-        departments={departments}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      {departments.length === 0 ? (
+        <div className="card shadow-sm">
+          <div className="card-body text-center py-5">
+            <h4>Nenhum departamento encontrado</h4>
+
+            <p className="text-muted mb-0">Crie o primeiro departamento</p>
+          </div>
+        </div>
+      ) : (
+        <div className="row g-4">
+          {departments.map((department) => (
+            <DepartmentCard
+              key={department.id}
+              department={department}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
+      )}
     </MainLayout>
   );
 }
