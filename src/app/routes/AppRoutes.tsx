@@ -4,12 +4,14 @@ import Login from "../../features/auth/pages/Login";
 import Employees from "../../features/employees/pages/Employees";
 import CompanyProfile from "../../features/companies/pages/CompanyProfile";
 import Dashboard from "../../features/dashboard/pages/Dashboard";
+import RegisterCompany from "../../features/companies/pages/RegisterCompany";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterCompany />} />
         <Route
           path="/"
           element={

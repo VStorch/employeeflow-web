@@ -1,12 +1,13 @@
 import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
-import { login } from "../services/authService";
+import MainLayout from "../../../layouts/MainLayout";
 
-import { saveToken } from "../services/tokenService";
+import { createCompany } from "../services/companyService";
 
-function Login() {
+function RegisterCompany() {
+  const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
@@ -15,38 +16,49 @@ function Login() {
 
   const navigate = useNavigate();
 
-  async function handleLogin(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     try {
       setLoading(true);
 
-      const response = await login({
+      await createCompany({
+        name,
         email,
         password,
       });
 
-      saveToken(response.token);
+      alert("Empresa criada com sucesso!");
 
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error(error);
 
-      alert("Erro no login");
+      alert("Erro ao criar empresa");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="container mt-5">
+    <MainLayout>
       <div className="row justify-content-center">
-        <div className="col-md-5">
+        <div className="col-md-6">
           <div className="card shadow-sm">
             <div className="card-body p-4">
-              <h1 className="mb-4">EmployeeFlow</h1>
+              <h1 className="mb-4">Criar Empresa</h1>
 
-              <form onSubmit={handleLogin}>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label>Nome da Empresa</label>
+
+                  <input
+                    className="form-control"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+
                 <div className="mb-3">
                   <label>Email</label>
 
@@ -69,22 +81,21 @@ function Login() {
                 </div>
 
                 <button className="btn btn-primary w-100" disabled={loading}>
-                  {loading ? "Entrando..." : "Entrar"}
+                  {loading ? "Criando..." : "Criar Empresa"}
                 </button>
               </form>
 
               <hr className="my-4" />
 
               <p className="text-center mb-0">
-                Ainda não possui empresa?{" "}
-                <Link to="/register">Criar conta</Link>
+                Já possui conta? <Link to="/login">Entrar</Link>
               </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }
 
-export default Login;
+export default RegisterCompany;
