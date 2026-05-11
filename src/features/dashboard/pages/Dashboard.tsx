@@ -5,12 +5,12 @@ import { getRoles } from "../../roles/services/roleService";
 import { FaArrowRight, FaBriefcase, FaBuilding, FaUsers } from "react-icons/fa";
 import MainLayout from "../../../layouts/MainLayout";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner";
 
 function Dashboard() {
+  const [loading, setLoading] = useState(true);
   const [employeesCount, setEmployeesCount] = useState(0);
-
   const [departmentsCount, setDepartmentsCount] = useState(0);
-
   const [rolesCount, setRolesCount] = useState(0);
 
   useEffect(() => {
@@ -19,6 +19,8 @@ function Dashboard() {
 
   async function loadMetrics() {
     try {
+      setLoading(true);
+
       const [employees, departments, roles] = await Promise.all([
         getEmployees(),
         getDepartments(),
@@ -32,6 +34,8 @@ function Dashboard() {
       setRolesCount(roles.length);
     } catch (error) {
       console.error("Erro ao carregar dashboard", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -83,6 +87,14 @@ function Dashboard() {
       path: "/roles",
     },
   ];
+
+  if (loading) {
+    return (
+      <MainLayout>
+        <LoadingSpinner />
+      </MainLayout>
+    );
+  }
 
   return (
     <MainLayout>

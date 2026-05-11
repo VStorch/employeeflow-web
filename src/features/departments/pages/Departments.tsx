@@ -11,8 +11,10 @@ import MainLayout from "../../../layouts/MainLayout";
 import DepartmentForm from "../components/DepartmentForm";
 import DepartmentCard from "../components/DepartmentCard";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner";
 
 function Departments() {
+  const [loading, setLoading] = useState(true);
   const [departments, setDepartments] = useState<Department[]>([]);
 
   const [editingDepartment, setEditingDepartment] = useState<Department | null>(
@@ -25,11 +27,17 @@ function Departments() {
 
   async function loadDepartments() {
     try {
+      setLoading(true);
+
       const data = await getDepartments();
 
       setDepartments(data);
     } catch (error) {
       console.error("Erro ao carregar departamentos", error);
+
+      toast.error("Ocorreu um erro ao carregar os departamentos.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -99,7 +107,9 @@ function Departments() {
         onCancel={handleCancelEdit}
       />
 
-      {departments.length === 0 ? (
+      {loading ? (
+        <LoadingSpinner />
+      ) : departments.length === 0 ? (
         <div className="card shadow-sm">
           <div className="card-body text-center py-5">
             <h4>Nenhum departamento encontrado</h4>

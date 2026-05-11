@@ -11,8 +11,10 @@ import MainLayout from "../../../layouts/MainLayout";
 import RoleForm from "../components/RoleForm";
 import RoleCard from "../components/RoleCard";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner";
 
 function Roles() {
+  const [loading, setLoading] = useState(true);
   const [roles, setRoles] = useState<Role[]>([]);
 
   const [editingRole, setEditingRole] = useState<Role | null>(null);
@@ -23,11 +25,17 @@ function Roles() {
 
   async function loadRoles() {
     try {
+      setLoading(true);
+
       const data = await getRoles();
 
       setRoles(data);
     } catch (error) {
       console.error("Erro ao carregar cargos", error);
+
+      toast.error("Ocorreu um erro ao carregar os cargos.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -96,7 +104,9 @@ function Roles() {
         onCancel={handleCancelEdit}
       />
 
-      {roles.length === 0 ? (
+      {loading ? (
+        <LoadingSpinner />
+      ) : roles.length === 0 ? (
         <div className="card shadow-sm">
           <div className="card-body text-center py-5">
             <h4>Nenhum cargo encontrado</h4>

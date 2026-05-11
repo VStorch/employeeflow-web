@@ -17,12 +17,12 @@ import {
 
 import { removeToken } from "../../auth/services/tokenService";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner";
 
 function CompanyProfile() {
+  const [loading, setLoading] = useState(true);
   const [company, setCompany] = useState<Company | null>(null);
-
   const [isEditing, setIsEditing] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,10 +31,16 @@ function CompanyProfile() {
 
   async function loadCompany() {
     try {
+      setLoading(true);
+
       const data = await getMyCompany();
       setCompany(data);
     } catch (error) {
       console.error("Erro ao carregar empresa", error);
+
+      toast.error("Ocorreu um erro ao carregar os dados da empresa.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -74,10 +80,18 @@ function CompanyProfile() {
     }
   }
 
+  if (loading) {
+    return (
+      <MainLayout>
+        <LoadingSpinner />
+      </MainLayout>
+    );
+  }
+
   if (!company) {
     return (
       <MainLayout>
-        <p>Carregando...</p>
+        <div className="alert alert-danger">Empresa não encontrada.</div>
       </MainLayout>
     );
   }

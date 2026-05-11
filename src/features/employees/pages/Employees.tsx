@@ -18,8 +18,10 @@ import EmployeeForm from "../components/EmployeeForm";
 import EmployeeFilters from "../components/EmployeeFilters";
 import EmployeeCard from "../components/EmployeeCard";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner";
 
 function Employees() {
+  const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -50,16 +52,22 @@ function Employees() {
       setRoles(rolesData);
     } catch (error) {
       console.error("Erro ao carregar dados", error);
+      toast.error("Ocorreu um erro ao carregar os dados.");
     }
   }
 
   async function loadEmployees() {
     try {
+      setLoading(true);
+
       const data = await getEmployees(selectedDepartmentId, selectedRoleId);
 
       setEmployees(data);
     } catch (error) {
       console.error("Erro ao carregar funcionários", error);
+      toast.error("Ocorreu um erro ao carregar os funcionários.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -141,7 +149,9 @@ function Employees() {
         onRoleChange={setSelectedRoleId}
       />
 
-      {employees.length === 0 ? (
+      {loading ? (
+        <LoadingSpinner />
+      ) : employees.length === 0 ? (
         <div className="card shadow-sm">
           <div className="card-body text-center py-5">
             <h4>Nenhum funcionário encontrado</h4>
