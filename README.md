@@ -1,73 +1,201 @@
-# React + TypeScript + Vite
+# EmployeeFlow Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EmployeeFlow Web é o frontend da plataforma EmployeeFlow, desenvolvido em **React + TypeScript** com arquitetura modular baseada em features, integração com API REST e autenticação JWT.
 
-Currently, two official plugins are available:
+A aplicação simula um sistema corporativo de gestão de funcionários, departamentos, cargos e empresas, consumindo a API backend do ecossistema EmployeeFlow.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-6-blue)
+![Vite](https://img.shields.io/badge/Vite-8-purple)
+![ESLint](https://img.shields.io/badge/ESLint-10-yellow)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tecnologias utilizadas
 
-## Expanding the ESLint configuration
+- React 19
+- TypeScript
+- Vite
+- React Router DOM
+- Axios
+- React Toastify
+- CSS modularizado por tema/layout
+- JWT Authentication
+- ESLint
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🧱 Arquitetura
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+O projeto segue uma organização baseada em **features/domínios**, visando escalabilidade e separação de responsabilidades.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Estrutura principal
+
+```bash
+src/
+├── api/
+├── app/
+├── features/
+├── layouts/
+├── shared/
+└── styles/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Organização por feature
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Cada domínio possui:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **pages** → páginas da feature
+- **components** → componentes reutilizáveis
+- **services** → comunicação com API
+- **types** → contratos TypeScript
+
+Exemplo:
+
+```bash
+features/employees/
+├── components/
+├── pages/
+├── services/
+└── types/
 ```
+
+---
+
+## 📦 Funcionalidades
+
+### Autenticação
+
+- Login com JWT
+- Persistência de token
+- Rotas protegidas
+
+### Empresas
+
+- Cadastro de empresas
+- Visualização de perfil
+
+### Departamentos
+
+- CRUD completo
+- Associação com empresas
+
+### Funcionários
+
+- CRUD completo
+- Filtros por departamento e cargo
+
+### Cargos
+
+- Gerenciamento de cargos/permissões
+
+### Dashboard
+
+- Área central da aplicação
+- Métricas
+
+---
+
+## 🔐 Autenticação JWT
+
+A aplicação utiliza autenticação baseada em JWT integrada à API backend.
+
+Fluxo:
+
+1. Usuário realiza login
+2. Token JWT é armazenado localmente
+3. Requisições autenticadas utilizam:
+
+```http
+Authorization: Bearer {token}
+```
+
+4. Rotas protegidas validam autenticação automaticamente
+
+---
+
+## ⚙️ Destaques técnicos
+
+- Estrutura modular baseada em domínio
+- Separação clara entre UI, serviços e contratos
+- Requisições centralizadas com Axios
+- Controle de autenticação via JWT
+- Rotas privadas com proteção de acesso
+- Componentização reutilizável
+- Organização escalável para crescimento do sistema
+
+---
+
+## ▶️ Executando o projeto localmente
+
+1. Clonar o repositório
+
+```bash
+git clone https://github.com/VStorch/employeeflow-web.git
+```
+
+2. Instalar dependências
+
+```bash
+npm install
+```
+
+3. Executar a aplicação
+
+```bash
+npm run dev
+```
+
+---
+
+## 📁 Estrutura principal
+
+```bash
+src/
+├── api/
+│   └── api.ts
+│
+├── app/
+│   └── routes/
+│
+├── features/
+│   ├── auth/
+│   ├── companies/
+│   ├── dashboard/
+│   ├── departments/
+│   ├── employees/
+│   └── roles/
+│
+├── layouts/
+├── shared/
+└── styles/
+```
+
+---
+
+## 📌 Boas práticas aplicadas
+
+- Organização por domínio/features
+- Componentização reutilizável
+- Separação entre lógica e apresentação
+- Tipagem forte com TypeScript
+- Serviços desacoplados da interface
+- Rotas protegidas para autenticação
+- Estrutura preparada para escalabilidade
+- Conventional Commits
+
+---
+
+## 🔗 Backend da aplicação
+
+O frontend consome a API do projeto EmployeeFlow Backend:
+
+[EmployeeFlow API](https://github.com/VStorch/employeeflow-api.git)
+
+---
+
+## 👨‍💻 Autor
+
+Vinícius Storch.
+
+Projeto desenvolvido para fins de estudo e portfólio full stack.
