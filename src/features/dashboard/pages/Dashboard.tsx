@@ -39,7 +39,7 @@ function Dashboard() {
         </div>
 
         <div className="col-md-6">
-          <Link to="/" className="text-decoration-none">
+          <Link to="/roles" className="text-decoration-none">
             <div className="card shadow-sm p-4">
               <h3>Cargos</h3>
 

@@ -6,6 +6,7 @@ import CompanyProfile from "../../features/companies/pages/CompanyProfile";
 import Dashboard from "../../features/dashboard/pages/Dashboard";
 import RegisterCompany from "../../features/companies/pages/RegisterCompany";
 import Departments from "../../features/departments/pages/Departments";
+import Roles from "../../features/roles/pages/Roles";
 
 function AppRoutes() {
   return (
@@ -42,6 +43,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Departments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/roles"
+          element={
+            <ProtectedRoute>
+              <Roles />
             </ProtectedRoute>
           }
         />
