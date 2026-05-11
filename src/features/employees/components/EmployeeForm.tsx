@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import type { Employee } from "../types/Employee";
 import type { EmployeeFormData } from "../types/EmployeeFormData";
+import type { Role } from "../../roles/types/Role";
+import type { Department } from "../../departments/types/Department";
+import { getRoles } from "../../roles/services/roleService";
+import { getDepartments } from "../../departments/services/departmentService";
 
 type Props = {
   onSubmit: (data: EmployeeFormData) => void;
@@ -11,6 +15,10 @@ type Props = {
 };
 
 function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
+  const [departments, setDepartments] = useState<Department[]>([]);
+
+  const [roles, setRoles] = useState<Role[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -30,11 +38,30 @@ function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
       reset({
         name: "",
         email: "",
-        departmentId: 0,
-        roleId: 0,
+        departmentId: "",
+        roleId: "",
       });
     }
   }, [employee, reset]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  async function loadData() {
+    try {
+      const [departmentsData, rolesData] = await Promise.all([
+        getDepartments(),
+        getRoles(),
+      ]);
+
+      setDepartments(departmentsData);
+
+      setRoles(rolesData);
+    } catch (error) {
+      console.error("Erro ao carregar dados", error);
+    }
+  }
 
   function submit(data: EmployeeFormData) {
     onSubmit(data);
@@ -43,8 +70,8 @@ function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
       reset({
         name: "",
         email: "",
-        departmentId: 0,
-        roleId: 0,
+        departmentId: "",
+        roleId: "",
       });
     }
   }
@@ -84,14 +111,22 @@ function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
       <div className="mb-3">
         <label>Department Id</label>
 
-        <input
-          type="number"
-          className="form-control"
+        <select
+          className="form-select"
           {...register("departmentId", {
             required: "Departamento é obrigatório",
+
             valueAsNumber: true,
           })}
-        />
+        >
+          <option value="">Selecione um departamento</option>
+
+          {departments.map((department) => (
+            <option key={department.id} value={department.id}>
+              {department.name}
+            </option>
+          ))}
+        </select>
 
         {errors.departmentId && (
           <p className="text-danger">{errors.departmentId.message}</p>
@@ -101,14 +136,22 @@ function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
       <div className="mb-3">
         <label>Role Id</label>
 
-        <input
-          type="number"
-          className="form-control"
+        <select
+          className="form-select"
           {...register("roleId", {
             required: "Cargo é obrigatório",
+
             valueAsNumber: true,
           })}
-        />
+        >
+          <option value="">Selecione um cargo</option>
+
+          {roles.map((role) => (
+            <option key={role.id} value={role.id}>
+              {role.name}
+            </option>
+          ))}
+        </select>
 
         {errors.roleId && (
           <p className="text-danger">{errors.roleId.message}</p>
