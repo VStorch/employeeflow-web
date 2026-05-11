@@ -19,7 +19,7 @@ function Login() {
 
       saveToken(response.token);
 
-      navigate("/employees");
+      navigate("/");
     } catch (error) {
       console.error(error);
       alert("Erro no login");
