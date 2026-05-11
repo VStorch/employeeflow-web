@@ -6,6 +6,7 @@ import {
   FaUsers,
   FaHome,
   FaSignOutAlt,
+  FaLayerGroup,
 } from "react-icons/fa";
 
 import { removeToken } from "../../features/auth/services/tokenService";
@@ -37,7 +38,7 @@ function Sidebar() {
     {
       label: "Departamentos",
       path: "/departments",
-      icon: <FaBuilding />,
+      icon: <FaLayerGroup />,
     },
 
     {
