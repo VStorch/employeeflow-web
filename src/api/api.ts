@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken, removeToken } from "../features/auth/services/tokenService";
 
 const api = axios.create({
-    baseURL: "http://204.216.175.196:8080/api",
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 api.interceptors.request.use((config) => {
