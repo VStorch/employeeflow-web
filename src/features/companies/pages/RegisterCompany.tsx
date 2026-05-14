@@ -1,31 +1,31 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-
 import { createCompany } from "../services/companyService";
 import { toast } from "react-toastify";
 
+type RegisterCompanyFormData = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 function RegisterCompany() {
-  const [name, setName] = useState("");
-
-  const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterCompanyFormData>();
 
+  async function handleRegister(data: RegisterCompanyFormData) {
     try {
       setLoading(true);
 
-      await createCompany({
-        name,
-        email,
-        password,
-      });
+      await createCompany(data);
 
       toast.success("Empresa criada com sucesso!");
 
@@ -48,25 +48,46 @@ function RegisterCompany() {
           <p className="auth-subtitle">Crie sua empresa no EmployeeFlow.</p>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(handleRegister)} noValidate>
           <div className="mb-3">
             <label className="form-label">Nome da Empresa</label>
 
             <input
               className="form-control"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder="Digite o nome da empresa"
+              {...register("name", {
+                required: "Nome da empresa é obrigatório",
+                minLength: {
+                  value: 3,
+                  message: "O nome deve ter no mínimo 3 caracteres",
+                },
+              })}
             />
+
+            {errors.name && (
+              <p className="text-danger mt-1">{errors.name.message}</p>
+            )}
           </div>
 
           <div className="mb-3">
             <label className="form-label">Email</label>
 
             <input
+              type="email"
               className="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="empresa@email.com"
+              {...register("email", {
+                required: "Email é obrigatório",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Email inválido",
+                },
+              })}
             />
+
+            {errors.email && (
+              <p className="text-danger mt-1">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -75,9 +96,19 @@ function RegisterCompany() {
             <input
               type="password"
               className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Digite sua senha"
+              {...register("password", {
+                required: "Senha é obrigatória",
+                minLength: {
+                  value: 6,
+                  message: "A senha deve ter no mínimo 6 caracteres",
+                },
+              })}
             />
+
+            {errors.password && (
+              <p className="text-danger mt-1">{errors.password.message}</p>
+            )}
           </div>
 
           <button className="btn btn-primary w-100" disabled={loading}>
