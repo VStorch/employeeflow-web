@@ -4,10 +4,17 @@ EmployeeFlow Web é o frontend da plataforma EmployeeFlow, desenvolvido em **Rea
 
 A aplicação simula um sistema corporativo de gestão de funcionários, departamentos, cargos e empresas, consumindo a API backend do ecossistema EmployeeFlow.
 
-![React](https://img.shields.io/badge/React-19-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-6-blue)
-![Vite](https://img.shields.io/badge/Vite-8-purple)
-![ESLint](https://img.shields.io/badge/ESLint-10-yellow)
+## 🔗 Links
+
+- Documentação Scalar: https://employeeflow-api.duckdns.org/scalar/v1
+- Frontend: https://employeeflow-web.vercel.app
+- Repositório Backend: https://github.com/VStorch/employeeflow-api.git
+
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007acc.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
 ---
 
@@ -19,7 +26,7 @@ A aplicação simula um sistema corporativo de gestão de funcionários, departa
 - React Router DOM
 - Axios
 - React Toastify
-- CSS modularizado por tema/layout
+- CSS
 - JWT Authentication
 - ESLint
 
@@ -60,6 +67,32 @@ features/employees/
 └── types/
 ```
 
+```mermaid
+graph TD
+    Pages[Pages]
+    Components[Reusable Components]
+    Services[API Services]
+    API[Backend API]
+    Types[Type Definitions]
+
+    Pages --> Components
+    Pages --> Services
+    Services --> API
+    Components --> Types
+    Services --> Types
+```
+
+---
+
+## Telas Principais
+
+<img src="assets/login_page.png" width="100%">
+<img src="assets/dashboard_page.png" width="100%">
+<img src="assets/company_page.png" width="100%">
+<img src="assets/departments_page.png" width="100%">
+<img src="assets/roles_page.png" width="100%">
+<img src="assets/employees_page.png" width="100%">
+
 ---
 
 ## 📦 Funcionalidades
@@ -92,7 +125,7 @@ features/employees/
 ### Dashboard
 
 - Área central da aplicação
-- Métricas
+- Resumo operacional das entidades cadastradas
 
 ---
 
@@ -111,6 +144,16 @@ Authorization: Bearer {token}
 ```
 
 4. Rotas protegidas validam autenticação automaticamente
+
+```mermaid
+graph TD
+    A[Usuário acessa rota /dashboard] --> B{Possui Token JWT?}
+    B -- Não --> C[Redireciona para /login]
+    B -- Sim --> D[Axios Interceptor adiciona Bearer]
+    D --> E[Requisição para API Backend]
+    E -- 200 OK --> F[Renderiza Componente]
+    E -- 401 Unauthorized --> G[Limpa Token e redireciona]
+```
 
 ---
 
@@ -173,7 +216,7 @@ src/
 
 ---
 
-## 📌 Boas práticas aplicadas
+## 🏗️ Decisões Técnicas
 
 - Organização por domínio/features
 - Componentização reutilizável
@@ -183,14 +226,6 @@ src/
 - Rotas protegidas para autenticação
 - Estrutura preparada para escalabilidade
 - Conventional Commits
-
----
-
-## 🔗 Backend da aplicação
-
-O frontend consome a API do projeto EmployeeFlow Backend:
-
-[EmployeeFlow API](https://github.com/VStorch/employeeflow-api.git)
 
 ---
 
