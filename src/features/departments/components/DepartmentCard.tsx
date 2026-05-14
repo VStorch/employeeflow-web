@@ -16,7 +16,9 @@ function DepartmentCard({ department, onEdit, onDelete }: Props) {
           <div className="mb-3">
             <h4 className="card-title">{department.name}</h4>
 
-            <p className="text-muted mb-0">Department ID: {department.id}</p>
+            <p className="text-muted mb-0">
+              ID do Departmento: {department.id}
+            </p>
           </div>
 
           <div className="mt-auto">

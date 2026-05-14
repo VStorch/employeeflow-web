@@ -79,7 +79,7 @@ function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
   return (
     <form onSubmit={handleSubmit(submit)} className="mb-4">
       <div className="mb-3">
-        <label>Name</label>
+        <label>Nome</label>
 
         <input
           className="form-control"
@@ -109,7 +109,7 @@ function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
       </div>
 
       <div className="mb-3">
-        <label>Department Id</label>
+        <label>Departmento</label>
 
         <select
           className="form-select"
@@ -134,7 +134,7 @@ function EmployeeForm({ onSubmit, employee, onCancel }: Props) {
       </div>
 
       <div className="mb-3">
-        <label>Role Id</label>
+        <label>Cargo</label>
 
         <select
           className="form-select"

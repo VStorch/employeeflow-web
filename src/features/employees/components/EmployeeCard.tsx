@@ -26,7 +26,9 @@ function EmployeeCard({ employee, onEdit, onDelete }: Props) {
           </div>
 
           <div className="mt-auto">
-            <small className="text-muted">Employee ID: {employee.id}</small>
+            <small className="text-muted">
+              ID do Funcionário: {employee.id}
+            </small>
 
             <div className="d-flex gap-2 mt-3">
               <button

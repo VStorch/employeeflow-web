@@ -16,7 +16,7 @@ function RoleCard({ role, onEdit, onDelete }: Props) {
           <div className="mb-3">
             <h4 className="card-title">{role.name}</h4>
 
-            <p className="text-muted mb-0">Role ID: {role.id}</p>
+            <p className="text-muted mb-0">ID do cargo: {role.id}</p>
           </div>
 
           <div className="mt-auto">
