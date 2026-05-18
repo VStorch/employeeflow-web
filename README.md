@@ -41,8 +41,19 @@ O projeto segue uma organização baseada em **features/domínios**, visando esc
 ```bash
 src/
 ├── api/
+│   └── api.ts
+│
 ├── app/
+│   └── routes/
+│
 ├── features/
+│   ├── auth/
+│   ├── companies/
+│   ├── dashboard/
+│   ├── departments/
+│   ├── employees/
+│   └── roles/
+│
 ├── layouts/
 ├── shared/
 └── styles/
@@ -95,6 +106,19 @@ graph TD
 
 ---
 
+## ⚙️ Destaques técnicos
+
+- Estrutura modular organizada por domínio/features
+- Componentização reutilizável com separação clara entre UI, serviços e contratos
+- Requisições centralizadas com Axios
+- Controle de autenticação via JWT
+- Rotas privadas com proteção de acesso
+- Organização escalável para crescimento do sistema
+- Tipagem forte com TypeScript
+- Conventional Commits
+
+---
+
 ## 📦 Funcionalidades
 
 ### Autenticação
@@ -113,14 +137,15 @@ graph TD
 - CRUD completo
 - Associação com empresas
 
+### Cargos
+
+- CRUD completo
+- Associação com empresas
+
 ### Funcionários
 
 - CRUD completo
 - Filtros por departamento e cargo
-
-### Cargos
-
-- Gerenciamento de cargos/permissões
 
 ### Dashboard
 
@@ -157,18 +182,6 @@ graph TD
 
 ---
 
-## ⚙️ Destaques técnicos
-
-- Estrutura modular baseada em domínio
-- Separação clara entre UI, serviços e contratos
-- Requisições centralizadas com Axios
-- Controle de autenticação via JWT
-- Rotas privadas com proteção de acesso
-- Componentização reutilizável
-- Organização escalável para crescimento do sistema
-
----
-
 ## ▶️ Executando o projeto localmente
 
 1. Clonar o repositório
@@ -183,49 +196,17 @@ git clone https://github.com/VStorch/employeeflow-web.git
 npm install
 ```
 
-3. Executar a aplicação
+3. Criar arquivo .env
+
+```
+VITE_API_URL=UrlDaApi
+```
+
+4. Executar a aplicação
 
 ```bash
 npm run dev
 ```
-
----
-
-## 📁 Estrutura principal
-
-```bash
-src/
-├── api/
-│   └── api.ts
-│
-├── app/
-│   └── routes/
-│
-├── features/
-│   ├── auth/
-│   ├── companies/
-│   ├── dashboard/
-│   ├── departments/
-│   ├── employees/
-│   └── roles/
-│
-├── layouts/
-├── shared/
-└── styles/
-```
-
----
-
-## 🏗️ Decisões Técnicas
-
-- Organização por domínio/features
-- Componentização reutilizável
-- Separação entre lógica e apresentação
-- Tipagem forte com TypeScript
-- Serviços desacoplados da interface
-- Rotas protegidas para autenticação
-- Estrutura preparada para escalabilidade
-- Conventional Commits
 
 ---
 
